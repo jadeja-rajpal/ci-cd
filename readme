@@ -1,0 +1,267 @@
+# 🚀 My First CI/CD Project (Docker + GitHub Actions)
+
+A simple full-stack project demonstrating **CI/CD pipeline using GitHub Actions, Docker, and Docker Hub**.
+
+---
+
+# 📁 Project Structure
+
+first-cicd-project/
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── Dockerfile
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   └── Dockerfile
+│
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+│
+└── README.md
+```
+
+---
+
+# ⚙️ Tech Stack
+
+* Frontend → HTML, CSS, JavaScript
+* Backend → Node.js + Express
+* Containerization → Docker
+* CI/CD → GitHub Actions
+* Registry → Docker Hub
+* Deployment → Linux Server (Ubuntu)
+
+---
+
+🔐 GitHub Secrets Setup
+
+To enable CI/CD pipeline, we store sensitive credentials securely using GitHub Secrets.
+
+Go to:
+
+GitHub Repository
+ → Settings
+ → Secrets and variables
+ → Actions
+ → New repository secret
+
+Required Secrets
+1. Docker Hub Credentials
+DOCKER_USERNAME = your_dockerhub_username
+DOCKER_PASSWORD = your_dockerhub_access_token
+
+⚠️ Recommended: Use Docker Hub Access Token instead of password
+
+2. Server Credentials (for CD)
+SERVER_HOST = your_server_ip
+SERVER_USER = ubuntu (or your user)
+SERVER_SSH_KEY = private_ssh_key
+
+
+
+# 🔄 CI/CD Architecture
+
+Developer
+   ↓
+GitHub Push
+   ↓
+GitHub Actions (CI)
+   ├── Build Frontend Image
+   ├── Build Backend Image
+   ├── Push to Docker Hub
+   ↓
+GitHub Actions (CD)
+   ↓
+SSH into Server
+   ↓
+Pull Latest Images
+   ↓
+Restart Containers
+   ↓
+🚀 Live Application
+```
+
+---
+
+# 🧪 Local Setup
+
+## Run Backend
+
+cd backend
+npm install
+node server.js
+```
+
+Backend runs on:
+
+```text id="c8v3ka"
+http://localhost:5000/api/message
+```
+
+---
+
+## Run Frontend
+
+cd frontend
+python -m http.server 8080
+```
+
+Frontend runs on:
+
+```text id="n9q1ld"
+http://localhost:8080
+```
+
+---
+
+# 🐳 Docker Setup
+
+## Backend Dockerfile
+
+```dockerfile id="v3k8xa"
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD ["node", "server.js"]
+```
+
+---
+
+## Frontend Dockerfile
+
+FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80
+```
+
+---
+
+# 🏗️ Docker Commands
+
+## Build Images
+
+```bash id="c9w2pa"
+docker build -t backend:v1 ./backend
+docker build -t frontend:v1 ./frontend
+```
+
+---
+
+## Run Containers
+
+docker run -d --name backend -p 5000:5000 backend:v1
+docker run -d --name frontend -p 8080:80 frontend:v1
+```
+
+---
+
+## Verify
+
+```bash id="w1q8kd"
+docker ps
+docker images
+docker logs backend
+```
+
+---
+
+# ☁️ Docker Hub Push
+
+docker login
+```
+
+## Tag Images
+
+docker tag backend:v1 <username>/backend:latest
+docker tag frontend:v1 <username>/frontend:latest
+```
+
+## Push Images
+
+docker push <username>/backend:latest
+docker push <username>/frontend:latest
+```
+
+---
+
+# 🌐 Server Deployment (CD)
+
+## SSH into Server
+
+ssh ubuntu@<server-ip>
+```
+
+## Install Docker
+
+sudo apt update
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+## Login to Docker Hub (one-time)
+
+docker login
+```
+
+---
+
+## Deploy Application
+
+docker pull <username>/frontend:latest
+docker pull <username>/backend:latest
+```
+
+## Run Containers
+
+docker run -d --name backend -p 5000:5000 <username>/backend:latest
+
+docker run -d --name frontend -p 80:80 <username>/frontend:latest
+```
+
+---
+
+# 🔁 Git Commands
+
+git init
+git add .
+git commit -m "initial commit"
+git branch -M main
+git remote add origin <repo-url>
+git push -u origin main
+```
+
+---
+
+# 🚀 CI/CD Flow (Final Understanding)
+
+1. Developer writes code
+2. git push
+3. GitHub Actions triggers
+4. Docker images are built
+5. Images pushed to Docker Hub
+6. Server pulls latest images
+7. Containers restart
+8. Application is live 🚀
+```
+
+---
+
+# 🎯 What You Learned
+
+* Full-stack containerization
+* Docker images & containers
+* GitHub Actions CI/CD pipeline
+* Docker Hub registry workflow
+* Manual + automated deployment
+* Real-world DevOps workflow
+
