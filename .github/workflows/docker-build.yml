@@ -21,25 +21,23 @@ jobs:
         env:
           GITLEAKS_ENABLE_COMMENTS: true
 
-#    # 🧹 LINT BACKEND
-#      - name: Setup Node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 20
-#
-#      - name: Install Backend Dependencies
-#        run: |
-#          cd backend
-#          npm install
-#
-#      - name: Run Lint
-#        run: |
-#          cd backend
-#          npm run lint
-#
+    # 🧹 LINT BACKEND
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
 
-      - name: Login to DockerHub
+      - name: Run Lint
+        run: |
+          cd backend
+          npm run lint
+
+     - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
