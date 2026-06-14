@@ -69,6 +69,7 @@ jobs:
     name: Continuous Deployment (CD)
     runs-on: ubuntu-latest
 
+    environment: prod      
     needs: ci
 
     steps:
