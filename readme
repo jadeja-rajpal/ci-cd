@@ -4,90 +4,6 @@ A simple full-stack project demonstrating **CI/CD pipeline using GitHub Actions,
 
 ---
 
-# 📁 Project Structure
-
-first-cicd-project/
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   ├── script.js
-│   └── Dockerfile
-│
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   └── Dockerfile
-│
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml
-│
-└── README.md
-
-
----
-
-# ⚙️ Tech Stack
-
-* Frontend → HTML, CSS, JavaScript
-* Backend → Node.js + Express
-* Containerization → Docker
-* CI/CD → GitHub Actions
-* Registry → Docker Hub
-* Deployment → Linux Server (Ubuntu)
-
----
-
-🔐 GitHub Secrets Setup
-
-To enable CI/CD pipeline, we store sensitive credentials securely using GitHub Secrets.
-
-Go to:
-
-GitHub Repository
- → Settings
- → Secrets and variables
- → Actions
- → New repository secret
-
-Required Secrets
-1. Docker Hub Credentials
-DOCKER_USERNAME = your_dockerhub_username
-DOCKER_PASSWORD = your_dockerhub_access_token
-
-⚠️ Recommended: Use Docker Hub Access Token instead of password
-
-2. Server Credentials (for CD)
-SERVER_HOST = your_server_ip
-SERVER_USER = ubuntu (or your user)
-SERVER_SSH_KEY = private_ssh_key
-
-
-
-# 🔄 CI/CD Architecture
-
-Developer
-   ↓
-GitHub Push
-   ↓
-GitHub Actions (CI)
-   ├── Build Frontend Image
-   ├── Build Backend Image
-   ├── Push to Docker Hub
-   ↓
-GitHub Actions (CD)
-   ↓
-SSH into Server
-   ↓
-Pull Latest Images
-   ↓
-Restart Containers
-   ↓
-🚀 Live Application
-
-
----
 
 # 🧪 Local Setup
 
@@ -119,6 +35,100 @@ http://localhost:8080
 
 
 ---
+
+# 📁 Project Structure
+
+first-cicd-project/
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── Dockerfile
+│
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   └── Dockerfile
+│
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml
+│
+└── README.md
+
+
+---
+
+
+# ⚙️ Tech Stack
+
+* Frontend → HTML, CSS, JavaScript
+* Backend → Node.js + Express
+* Containerization → Docker
+* CI/CD → GitHub Actions
+* Registry → Docker Hub
+* Deployment → Linux Server (Ubuntu)
+
+---
+
+
+# 🧪 Local Setup
+
+## Run Backend
+
+cd backend
+npm install
+node server.js
+
+
+Backend runs on:
+
+text id="c8v3ka"
+http://localhost:5000/api/message
+
+
+---
+
+## Run Frontend
+
+cd frontend
+python -m http.server 8080
+
+
+Frontend runs on:
+
+text id="n9q1ld"
+http://localhost:8080
+
+
+
+
+
+# 🔄 CI/CD Architecture
+
+Developer
+   ↓
+GitHub Push
+   ↓
+GitHub Actions (CI)
+   ├── Build Frontend Image
+   ├── Build Backend Image
+   ├── Push to Docker Hub
+   ↓
+GitHub Actions (CD)
+   ↓
+SSH into Server
+   ↓
+Pull Latest Images
+   ↓
+Restart Containers
+   ↓
+🚀 Live Application
+
+
+---
+
 
 # 🐳 Docker Setup
 
@@ -192,6 +202,34 @@ docker push <username>/frontend:latest
 
 
 ---
+
+
+---
+
+🔐 GitHub Secrets Setup
+
+To enable CI/CD pipeline, we store sensitive credentials securely using GitHub Secrets.
+
+Go to:
+
+GitHub Repository
+ → Settings
+ → Secrets and variables
+ → Actions
+ → New repository secret
+
+Required Secrets
+1. Docker Hub Credentials
+DOCKER_USERNAME = your_dockerhub_username
+DOCKER_PASSWORD = your_dockerhub_access_token
+
+⚠️ Recommended: Use Docker Hub Access Token instead of password
+
+2. Server Credentials (for CD)
+SERVER_HOST = your_server_ip
+SERVER_USER = ubuntu (or your user)
+SERVER_SSH_KEY = private_ssh_key
+
 
 # 🌐 Server Deployment (CD)
 
